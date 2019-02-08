@@ -36,9 +36,15 @@ cdef class Heap:
                 break
 
 
-    cpdef void sort (self):
+    cdef void sort (self):
         cdef int counter = self.length-1
         while counter > 0:
             self.data[0], self.data[counter] = self.data[counter], self.data[0]
             counter -= 1
             self.sink(0, counter)
+
+
+def heapsort (ar):
+    h = Heap(ar)
+    h.sort()
+    return h.data
