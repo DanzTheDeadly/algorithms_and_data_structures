@@ -1,20 +1,25 @@
 cdef class Heap:
     cdef int[:] data
+    cdef int length
+
     def __cinit__ (self, int[:] input):
         self.data = input.copy()
+        self.length = len(self.data)
         self.build()
 
 
     def __str__ (self):
-        return str([val for val in self.data])
+        cdef str s = ''
+        cdef int i
+        for i in range(self.length):
+            s += str(self.data[i])+' '
+        return s
 
 
     cdef void build (self) nogil:
-        cdef int length = len(self.data)
-        cdef int start = (length-2)//2
-
+        cdef int start = (self.length-2)//2
         while start >= 0:
-            self.sink(start, length-1)
+            self.sink(start, self.length-1)
             start -= 1
 
 
@@ -29,3 +34,11 @@ cdef class Heap:
                 child = child*2 + 1
             else:
                 break
+
+
+    cpdef void sort (self):
+        cdef int counter = self.length-1
+        while counter > 0:
+            self.data[0], self.data[counter] = self.data[counter], self.data[0]
+            counter -= 1
+            self.sink(0, counter)

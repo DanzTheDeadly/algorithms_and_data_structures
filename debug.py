@@ -23,3 +23,12 @@ def pybenchmark ():
 
 %timeit benchmark()
 %timeit pybenchmark()
+
+
+import array
+from heap import Heap
+from random import randint
+
+ar = array.array('i', [randint(0,1000) for i in range(100000)])
+for i in range(1000):
+    Heap(ar).sort()
