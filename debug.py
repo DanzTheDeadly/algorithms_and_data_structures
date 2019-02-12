@@ -1,7 +1,7 @@
 from array import array
 from random import randint
-from algorithms import quicksort, insertion_sort
-from calgorithms import cquicksort, cinsertion_sort
+from algorithms.algorithms_cython import quicksort, insertion_sort
+from algorithms.algorithms_py import cquicksort, cinsertion_sort
 
 a = array('i', [randint(0, 1000) for i in range(1000)])
 
@@ -11,24 +11,12 @@ a = array('i', [randint(0, 1000) for i in range(1000)])
 %timeit quicksort(a, 0, 1000, inplace=False)
 %timeit sorted(a)
 
-%load_ext cython
-%%cython
-
-from linkedlist_cy import benchmark
-
-def pybenchmark ():
-    M = []
-    for i in range(10000000):
-        M.append(i)
-
-%timeit benchmark()
-%timeit pybenchmark()
-
 
 import array
-from heap import Heap
+from data_structures.heap_cython import heapsort
 from random import randint
 
 ar = array.array('i', [randint(0,1000) for i in range(100000)])
-for i in range(1000):
-    Heap(ar).sort()
+
+%timeit sorted(ar)
+%timeit heapsort(ar)

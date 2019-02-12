@@ -2,7 +2,7 @@ cdef class Heap:
     cdef int[:] data
     cdef int length
 
-    def __cinit__ (self, int[:] input):
+    def __cinit__ (self, int[:] input not None):
         self.data = input.copy()
         self.length = len(self.data)
         self.build()
@@ -36,7 +36,7 @@ cdef class Heap:
                 break
 
 
-    cdef void sort (self):
+    cdef void sort (self) nogil:
         cdef int counter = self.length-1
         while counter > 0:
             self.data[0], self.data[counter] = self.data[counter], self.data[0]
@@ -44,7 +44,7 @@ cdef class Heap:
             self.sink(0, counter)
 
 
-def heapsort (ar):
-    h = Heap(ar)
+cpdef int[:] heapsort (int[:] ar):
+    cdef Heap h = Heap(ar)
     h.sort()
     return h.data
