@@ -1,4 +1,4 @@
-from libc.stdlib cimport malloc, free
+from libc.stdlib cimport malloc
 
 cdef inline void sink (int* data, int root, int end) nogil:
     cdef int child = root*2 + 1
@@ -26,7 +26,7 @@ cdef void hs (int* data, int length) nogil:
         counter -= 1
         sink(data, 0, counter)
 
-cpdef heapsort (int[:] input):
+cpdef int[:] heapsort (int[:] input):
     cdef:
         int length = len(input)
         int* data = <int*>malloc(sizeof(int)*length)
@@ -38,5 +38,4 @@ cpdef heapsort (int[:] input):
     hs(data, length)
     #return
     cdef int[:] res = <int[:length]>data
-    free(data)
     return res
