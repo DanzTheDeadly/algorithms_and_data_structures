@@ -6,8 +6,8 @@ cdef struct Node:
 
 cdef class LinkedList:
     cdef Node* head
-    cdef Node* new
     cdef void append (self, int val) nogil:
+        cdef Node* new
         if self.head == NULL:
             self.head = <Node*>malloc(sizeof(Node))
             self.head.value = val
@@ -18,8 +18,9 @@ cdef class LinkedList:
             new.value = val
             self.head = new
 
-    cdef Node* current
+
     cdef void show (self):
+        cdef Node* current
         if self.head == NULL:
             print('empty')
         else:
@@ -27,10 +28,3 @@ cdef class LinkedList:
             while current != NULL:
                 print(current.value)
                 current = current.next
-
-
-cpdef benchmark ():
-    cdef int i
-    cdef LinkedList L = LinkedList()
-    for i in range(10000000):
-        L.append(i)
