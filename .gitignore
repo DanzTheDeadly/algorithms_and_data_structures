@@ -1,0 +1,4 @@
+*.html
+*.c
+*.so
+__pycache__
