@@ -40,3 +40,6 @@ def test ():
                 break
 
 cProfile.run('test()')
+
+from algorithms.split_string_by_char import split
+split('adfgah  eagh sa hgrs rtsasa ha h raj rs', ' ')
