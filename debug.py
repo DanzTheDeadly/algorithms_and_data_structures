@@ -1,45 +1,20 @@
-#import array
-#from random import randint
-#from algorithms.heapsort_cython import heapsort as pure_heapsort
-#from algorithms.quicksort_cython import quicksort
-#from algorithms.insertionsort_cython import insertion_sort
-#from timeit import timeit
-#встроенный питоновский алгоритм сортировки
-#%timeit sorted(ar)
-#алгоритм сортировки кучи на основе cdef класса cython
-#%timeit class_heapsort(ar)
-#алгоритм сортировки кучи в чистом виде на cython
-#%timeit pure_heapsort(ar)
-#быстрая сортировка
-#%timeit quicksort(ar)
+from random import randint, choices
+import string
 
-#ranges = [10, 25, 50, 75, 100, 150, 400, 1000, 5000, 10000, 50000, 100000, 250000, 500000]
-#times_h = []
-#times_q = []
-#for rng in ranges:
-#    ar = array.array('i', [randint(0,1000) for i in range(rng)])
-#    times_h.append(timeit(lambda: pure_heapsort(ar), number=500))
-#    times_q.append(timeit(lambda: quicksort(ar), number=500))
-#
-#import pandas as p
-#from math import log10
-#
-#df = p.DataFrame({'length': ranges, 'heapsort': times_h, 'quicksort': times_q})
-#df.plot(x='length', figsize=(15,10))
+def generate_random_datafile (name, lines=100):
+    with open(name, 'w') as outfile:
+        for i in range(lines):
+            id = randint(0, lines)
+            data = ''.join(choices(string.ascii_letters, k=10))
+            line = '{}\t{}\n'.format(id, data)
+            outfile.write(line)
 
-from data_structures.queue_cython import Queue
-import cProfile
 
-def test ():
-    a = Queue()
-    for i in range(1, 10000000):
-        a.enqueue(i)
-        while 1:
-            j = a.dequeue()
-            if not j:
-                break
+generate_random_datafile('left.txt', lines=5000)
+generate_random_datafile('right.txt', lines=5000)
 
-cProfile.run('test()')
+from algorithms.nested_loop_join import join as njoin
+from algorithms.hash_join import join as hjoin
 
-from algorithms.split_string_by_char import split
-split('adfgah  eagh sa hgrs rtsasa ha h raj rs', ' ')
+njoin('left.txt', 'right.txt')
+hjoin('left.txt', 'right.txt')
