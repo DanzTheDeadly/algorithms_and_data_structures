@@ -12,7 +12,7 @@ def insertion_sort (m, inplace=False):
         m[i+1] = k # m-1
 
 
-def sel_sort (m):
+def selection_sort (m):
     n = [] # 1
     while m: # m
         k = m[0] # m
