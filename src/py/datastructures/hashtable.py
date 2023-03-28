@@ -1,4 +1,4 @@
-class HashMapBase:
+class HashTableBase:
     def __init__(self, maxhash=10000):
         self.maxhash = maxhash
         self.data = [[] for i in range(self.maxhash)]
@@ -8,7 +8,7 @@ class HashMapBase:
         return index
 
 
-class HashSet(HashMapBase):
+class HashSet(HashTableBase):
     def add(self, key: int) -> None:
         index = self._hash(key)
         if not key in self.data[index]:
@@ -27,7 +27,7 @@ class HashSet(HashMapBase):
             return False
 
 
-class HashMap(HashMapBase):
+class HashMap(HashTableBase):
     def put(self, key: int, value: int) -> None:
         index = self._hash(key)
         for i, (k, v) in enumerate(self.data[index]):
