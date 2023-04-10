@@ -1,4 +1,4 @@
-from ..datastructures.linkedlist_py import Node
+from ..datastructures.linkedlist import Node
 
 def merge(l1, l2):
     '''
