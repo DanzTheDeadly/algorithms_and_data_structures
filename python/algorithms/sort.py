@@ -24,6 +24,8 @@ def selection_sort (m):
 
 
 def mergesort (m, start=0, end=0, inplace=False):
+    if not end:
+        end = len(m)
     if not inplace:
         m = m[:]
     if end-start > 1:
@@ -32,6 +34,8 @@ def mergesort (m, start=0, end=0, inplace=False):
         mergesort(m, start, div)
         mergesort(m, div, end)
         merge(m, start, div, end)
+    if not inplace:
+        return m
 
 
 def merge (m, start, div, end):
