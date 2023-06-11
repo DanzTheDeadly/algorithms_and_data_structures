@@ -10,6 +10,7 @@ def insertion_sort (m, inplace=False):
             m[i+1] = m[i] # m(m+1)/2-1
             i -= 1 # m(m+1)/2-1
         m[i+1] = k # m-1
+    return m
 
 
 def selection_sort (m):
@@ -19,7 +20,7 @@ def selection_sort (m):
         for i in m[1:]: # m(m+1)/2
             if i < k: # m(m+1)/2-1
                 k = i # m(m+1)/2-1
-        n.append(m.pop(m.index(k))) # m
+        n.append(m[m.index(k)]) # m
     return n
 
 
