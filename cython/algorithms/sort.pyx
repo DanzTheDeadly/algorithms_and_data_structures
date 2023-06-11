@@ -83,16 +83,14 @@ cdef void ins (int* m, int N) nogil:
         m[i+1] = k # m-1
 
 
-cpdef int[:] insertion_sort (int[:] input):
+cpdef list insertion_sort (list input):
+    # copy array
     cdef:
         int length = len(input)
         int* data = <int*>malloc(sizeof(int)*length)
-    #copy array
-    cdef int i
+        int i
     for i in range(length):
         data[i] = input[i]
-    #sort
+    # sort
     ins(data, length)
-    #return
-    cdef int[:] res = <int[:length]>data
-    return res
+    return list(<int[:length]>data)
