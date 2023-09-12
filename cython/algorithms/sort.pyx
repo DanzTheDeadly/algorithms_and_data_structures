@@ -88,9 +88,16 @@ cpdef list insertion_sort (list input):
     cdef:
         int length = len(input)
         int* data = <int*>malloc(sizeof(int)*length)
-        int i
-    for i in range(length):
-        data[i] = input[i]
+        int idx
+    for idx in range(length):
+        data[idx] = input[idx]
     # sort
-    ins(data, length)
+    cdef int j, k, i
+    for j in range(1, length):
+        k = data[j]
+        i = j-1
+        while i >= 0 and data[i] > k:
+            data[i+1] = data[i]
+            i -= 1
+        data[i+1] = k
     return list(<int[:length]>data)
