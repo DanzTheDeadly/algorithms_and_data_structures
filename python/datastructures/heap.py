@@ -6,10 +6,10 @@ class MinHeap:
     def insert(self, val: int):
         self.data.append(val)
         self.data[0] += 1
-        curr = self.data[0]
-        while curr > 1 and self.data[curr] < self.data[curr // 2]:
-            self.data[curr], self.data[curr // 2] = self.data[curr // 2], self.data[curr]
-            curr = curr // 2
+        idx = self.data[0]
+        while idx > 1 and self.data[idx] < self.data[idx // 2]:
+            self.data[idx], self.data[idx // 2] = self.data[idx // 2], self.data[idx]
+            idx = idx // 2
 
 
     def getMin(self) -> int:
