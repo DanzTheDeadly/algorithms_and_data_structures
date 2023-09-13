@@ -21,4 +21,11 @@ class MinHeap:
 
 
     def pop(self):
-        pass
+        self.data[1] = self.data.pop()
+        self.data[0] -= 1
+        idx = 1
+        smallest_child = idx * 2 if self.data[idx * 2] <= self.data[idx * 2 + 1] else idx * 2 + 1
+        while idx <= self.data[0] and self.data[idx] > self.data[smallest_child]:
+            self.data[idx], self.data[smallest_child] = self.data[smallest_child], self.data[idx]
+            idx = smallest_child
+            smallest_child = idx * 2 if self.data[idx * 2] <= self.data[idx * 2 + 1] else idx * 2 + 1
