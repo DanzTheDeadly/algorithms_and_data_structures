@@ -1,4 +1,5 @@
 from math import floor, ceil, inf
+from python.datastructures.heap import MinHeap
 
 def insertion_sort (m, inplace=False):
     if not inplace:
@@ -85,4 +86,15 @@ def counting_sort (m, r):
     for j in range(len(m)):
         res[less[m[j]]] = m[j]
         less[m[j]] += 1
+    return res
+
+
+def heapsort(l: list[int]) -> list[int]:
+    h = MinHeap()
+    for val in l:
+        h.insert(val)
+    res = []
+    for i in range(h.size()):
+        res.append(h.getMin())
+        h.pop()
     return res
