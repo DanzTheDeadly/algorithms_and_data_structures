@@ -53,8 +53,8 @@ def shortestPathBFS(graph: list[list[int]], start: int, end: int) -> list[int]:
                 if visited[neighbor] == 0:
                     shortest[neighbor] = shortest[node] + 1
                     prev[neighbor] = node
-                    q.put(neighbor)
                     visited[neighbor] = 1
+                    q.put(neighbor)
         else:
             counter = shortest[end]
             res = [None] * (counter + 1)
