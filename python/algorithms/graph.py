@@ -28,9 +28,9 @@ def shortestPath(graph: list[list], start: int, end: int):
     if not prev[end]:
         return False
     counter = shortest[end]
-    res = [None] * counter
-    while counter > 0:
-        res[counter-1] = end
+    res = [None] * (counter + 1)
+    while counter >= 0:
+        res[counter] = end
         end = prev[end]
         counter -= 1
     return res
