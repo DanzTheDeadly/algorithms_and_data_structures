@@ -1,3 +1,6 @@
+from queue import SimpleQueue
+
+
 def topological_sort(graph: list[list[int]]) -> list:
     in_degree = [0]*len(graph)
     for node in range(len(graph)):
@@ -34,3 +37,30 @@ def shortestPath(graph: list[list], start: int, end: int):
         end = prev[end]
         counter -= 1
     return res
+
+
+def shortestPathBFS(graph: list[list[int]], start: int, end: int):
+    shortest = [9999] * len(graph)
+    shortest[start] = 0
+    prev = [None] * len(graph)
+    visited = [0] * len(graph)
+    q = SimpleQueue()
+    q.put(start)
+    while not q.empty():
+        node = q.get()
+        if node != end:
+            for neighbor in graph[node]:
+                if visited[neighbor] == 0:
+                    shortest[neighbor] = shortest[node] + 1
+                    prev[neighbor] = node
+                    q.put(neighbor)
+                    visited[neighbor] = 1
+        else:
+            counter = shortest[end]
+            res = [None] * (counter + 1)
+            while counter >= 0:
+                res[counter] = end
+                end = prev[end]
+                counter -= 1
+            return res
+    return False
