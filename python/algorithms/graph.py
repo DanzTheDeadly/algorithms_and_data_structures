@@ -1,7 +1,7 @@
 from queue import SimpleQueue
 
 
-def topological_sort(graph: list[list[int]]) -> list:
+def topological_sort(graph: list[list[int]]) -> list[int]:
     in_degree = [0]*len(graph)
     for node in range(len(graph)):
         for neighbor in graph[node]:
@@ -18,7 +18,7 @@ def topological_sort(graph: list[list[int]]) -> list:
     return res
 
 
-def shortestPath(graph: list[list], start: int, end: int):
+def shortestPath(graph: list[list], start: int, end: int) -> list[int]:
     shortest = [9999] * len(graph)
     shortest[start] = 0
     prev = [None] * len(graph)
@@ -39,7 +39,7 @@ def shortestPath(graph: list[list], start: int, end: int):
     return res
 
 
-def shortestPathBFS(graph: list[list[int]], start: int, end: int):
+def shortestPathBFS(graph: list[list[int]], start: int, end: int) -> list[int]:
     shortest = [9999] * len(graph)
     shortest[start] = 0
     prev = [None] * len(graph)
