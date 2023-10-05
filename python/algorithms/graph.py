@@ -1,4 +1,5 @@
-from queue import SimpleQueue
+from collections import deque
+
 
 
 def topological_sort(graph: list[list[int]]) -> list[int]:
@@ -39,22 +40,22 @@ def shortestPath(graph: list[list], start: int, end: int) -> list[int]:
     return res
 
 
-def shortestPathBFS(graph: list[list[int]], start: int, end: int) -> list[int]:
+def findPathBFS(graph: list[list[int]], start: int, end: int):
     shortest = [9999] * len(graph)
     shortest[start] = 0
     prev = [None] * len(graph)
     visited = [0] * len(graph)
-    q = SimpleQueue()
-    q.put(start)
-    while not q.empty():
-        node = q.get()
+    dq = deque()
+    dq.append(start)
+    while dq:
+        node = dq.popleft()
         if node != end:
             for neighbor in graph[node]:
                 if visited[neighbor] == 0:
                     shortest[neighbor] = shortest[node] + 1
                     prev[neighbor] = node
+                    dq.append(neighbor)
                     visited[neighbor] = 1
-                    q.put(neighbor)
         else:
             counter = shortest[end]
             res = [None] * (counter + 1)
@@ -62,5 +63,34 @@ def shortestPathBFS(graph: list[list[int]], start: int, end: int) -> list[int]:
                 res[counter] = end
                 end = prev[end]
                 counter -= 1
+            print(visited)
+            return res
+    return False
+
+
+def findPathDFS(graph: list[list[int]], start: int, end: int):
+    shortest = [9999] * len(graph)
+    shortest[start] = 0
+    prev = [None] * len(graph)
+    visited = [0] * len(graph)
+    dq = deque()
+    dq.append(start)
+    while dq:
+        node = dq.pop()
+        if node != end:
+            for neighbor in graph[node]:
+                if visited[neighbor] == 0:
+                    shortest[neighbor] = shortest[node] + 1
+                    prev[neighbor] = node
+                    dq.append(neighbor)
+                    visited[neighbor] = 1
+        else:
+            counter = shortest[end]
+            res = [None] * (counter + 1)
+            while counter >= 0:
+                res[counter] = end
+                end = prev[end]
+                counter -= 1
+            print(visited)
             return res
     return False
