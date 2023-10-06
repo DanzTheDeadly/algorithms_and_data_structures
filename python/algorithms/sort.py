@@ -98,3 +98,38 @@ def heapsort(l: list[int]) -> list[int]:
         res.append(h.getMin())
         h.pop()
     return res
+
+
+def heapsort_inplace(l: list[int]):
+    length = len(l)
+    if length <= 1:
+        return
+    else:
+        def _get_biggest_idx(idx1):
+            biggest_idx = idx1
+            left_idx = idx1 * 2 + 1
+            right_idx = idx1 * 2 + 2
+            if left_idx < length:
+                if l[biggest_idx] < l[left_idx]:
+                    biggest_idx = left_idx
+                if right_idx < length:
+                    if l[biggest_idx] < l[right_idx]:
+                        biggest_idx = right_idx
+            return biggest_idx
+        
+        for idx in range(1, length):
+            parent = (idx - 1) // 2 
+            while idx > 0 and l[idx] > l[parent]:
+                l[idx], l[parent] = l[parent], l[idx]
+                idx = parent
+                parent = (idx - 1) // 2
+
+        while length > 1:
+            l[length - 1], l[0] = l[0], l[length - 1]
+            idx = 0
+            length -= 1
+            biggest_idx = _get_biggest_idx(idx)
+            while idx != biggest_idx:
+                l[idx], l[biggest_idx] = l[biggest_idx], l[idx]
+                idx = biggest_idx
+                biggest_idx = _get_biggest_idx(idx)
