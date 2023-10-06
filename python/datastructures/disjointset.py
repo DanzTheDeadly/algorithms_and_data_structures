@@ -15,7 +15,6 @@ class DisjointSet:
         parentY = self.find(y)
         if parentX != parentY:
             self.parent[parentY] = parentX
-        print(self, (x,y))
 
     def connected(self, x, y):
         return self.find(x) == self.find(y)
@@ -42,7 +41,6 @@ class DisjointSetOptimized:
         parentY = self.find(y)
         if parentX != parentY:
             self.parent[parentY] = parentX
-        print(self, (x,y))
 
     def connected(self, x, y):
         return self.find(x) == self.find(y)
