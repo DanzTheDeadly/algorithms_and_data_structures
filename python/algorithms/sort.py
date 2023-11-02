@@ -25,35 +25,28 @@ def selection_sort (m):
     return n
 
 
-def mergesort (m, start=0, end=0, inplace=False):
-    if not end:
-        end = len(m)
-    if not inplace:
-        m = m[:]
-    if end-start > 1:
-        div = floor((end+start)/2)
-        print(start, div, end)
-        mergesort(m, start, div)
-        mergesort(m, div, end)
-        merge(m, start, div, end)
-    if not inplace:
-        return m
+def mergeSort(l):
+    length = len(l)
+    if length <= 1:
+        return l
+    mid = length // 2
+    sortedLeft = mergeSort(l[:mid])
+    sortedRight = mergeSort(l[mid:])
+    return merge(sortedLeft, sortedRight)
 
-
-def merge (m, start, div, end):
-    A = m[start:div]
-    A.append(999999)
-    B = m[div:end]
-    B.append(999999)
-    i, j = 0, 0
-    for n in range(start, end):
-        if A[i] < B[j]:
-            m[n] = A[i]
-            i += 1
+def merge(left_list, right_list):
+    left = right = 0
+    res = []
+    while left < len(left_list) and right < len(right_list):
+        if left_list[left] < right_list[right]:
+            res.append(left_list[left])
+            left += 1
         else:
-            m[n] = B[j]
-            j += 1
-    print(m)
+            res.append(right_list[right])
+            right += 1
+    res.extend(left_list[left:])
+    res.extend(right_list[right:])
+    return res
 
 
 def quicksort (m, a=0, b=10, inplace=False):
